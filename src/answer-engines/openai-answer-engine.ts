@@ -23,7 +23,7 @@ export class OpenAIAnswerEngine extends AnswerEngine {
 
   protected override async _generateResponseForQuery(
     query: types.AnswerEngineQuery,
-    ctx: types.AnswerEngineContext
+    _ctx: types.AnswerEngineContext
   ): Promise<string> {
     const currentDate = getCurrentDate()
 

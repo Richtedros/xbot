@@ -18,8 +18,8 @@ for (const answerEngine of answerEngines) {
   describe(`${answerEngine.type} answer engine`, async () => {
     const ctx: types.AnswerEngineContext = {
       twitterClient: await getTwitterClient(),
-      twitterBotHandle: '@AskDexa',
-      twitterBotUserId: '1757989045383106560',
+      twitterBotHandle: '@TerminalGriplor',
+      twitterBotUserId: '1849764963738398720',
       answerEngine
     }
 

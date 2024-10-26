@@ -1,22 +1,36 @@
+options:
+  logging: CLOUD_LOGGING_ONLY  # Simple option to log only to Cloud Logging
+
 steps:
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['install']
-  - name: 'gcr.io/cloud-builders/npm'
-    args: ['run', 'build']
+  # Step 1: Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/xbot', '.']
+    args: [
+      'build',
+      '-t', 'gcr.io/terminal-of-griplore/xbot',  # Use your Google Cloud Project ID
+      '.'
+    ]
+
+  # Step 2: Push the Docker image to Google Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/xbot']
+    args: [
+      'push',
+      'gcr.io/terminal-of-griplore/xbot'  # Use your Google Cloud Project ID
+    ]
+
+  # Step 3: Deploy the image to Google Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
       - 'run'
       - 'deploy'
-      - 'xbot'
+      - 'xbot'  # The name of your Cloud Run service
       - '--image'
-      - 'gcr.io/$PROJECT_ID/xbot'
+      - 'gcr.io/terminal-of-griplore/xbot'  # Use your Google Cloud Project ID
       - '--platform'
       - 'managed'
       - '--region'
-      - 'us-central1'
-      - '--allow-unauthenticated'
+      - 'us-central1'  # Choose the region you want to deploy to
+      - '--allow-unauthenticated'  # Allow public access
+
+images:
+  - 'gcr.io/terminal-of-griplore/xbot'
